@@ -1,5 +1,4 @@
-
-local function safeLoad(url)
+local function safeLoad(url: string): any?
     print("Attempting to load from URL: " .. url)
     local success, result = pcall(function()
         return loadstring(game:HttpGet(url))()
@@ -11,7 +10,7 @@ local function safeLoad(url)
     return result
 end
 
--- Load Rayfield UI library and modules
+-- Load Rayfield UI library and modules from AUBELI/Cassie
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local CommonUtil = safeLoad('https://raw.githubusercontent.com/AUBELI/Cassie/main/Main/Modules/CommonUtil.luau')
 local AUTMainModule = safeLoad('https://raw.githubusercontent.com/AUBELI/Cassie/main/Main/Modules/AUTMainModule.luau')
@@ -50,7 +49,7 @@ local ToggleAutoFarm = TabAutoLevel:CreateToggle({
     Name = "Enable Auto-Level",
     CurrentValue = false,
     Flag = "AutoLevelToggle",
-    Callback = function(Value)
+    Callback = function(Value: boolean)
         if Value then
             AUTMainModule.IsMonitoring = true
             AUTMainModule.RunLevelWatcher()
@@ -66,7 +65,7 @@ TabAutoLevel:CreateSlider({
     Increment = 0.01,
     CurrentValue = 0.1,
     Flag = "FarmDelaySlider",
-    Callback = function(Value)
+    Callback = function(Value: number)
         AUTMainModule.FarmInterval = Value
     end
 })
@@ -80,7 +79,7 @@ for _, rarity in ipairs(rarities) do
         Name = rarity .. " Shards",
         CurrentValue = default,
         Flag = rarity .. "ShardToggle",
-        Callback = function(Value)
+        Callback = function(Value: boolean)
             selectedRarities[rarity] = Value
             local activeRarities = {}
             for r, s in pairs(selectedRarities) do
@@ -106,7 +105,7 @@ TabMisc:CreateDropdown({
     CurrentOption = {locationNames[1] or ""},
     MultipleOptions = false,
     Flag = "TeleportDropdown",
-    Callback = function(Option)
+    Callback = function(Option: {string})
         selectedLocation = Option[1]
     end
 })
@@ -135,7 +134,7 @@ TabMisc:CreateToggle({
     Name = "Auto Ascension",
     CurrentValue = false,
     Flag = "AutoAscensionToggle",
-    Callback = function(Value)
+    Callback = function(Value: boolean)
         AUTMainModule.SetAutoAscend(Value)
         if Value then
             AUTMainModule.IsMonitoring = true
@@ -152,7 +151,7 @@ TabMisc:CreateToggle({
     Name = "VFX Remover",
     CurrentValue = false,
     Flag = "VFXRemoverToggle",
-    Callback = function(Value)
+    Callback = function(Value: boolean)
         AUTMainModule.SetVFXAutoRemove(Value)
     end
 })
@@ -161,7 +160,7 @@ TabMisc:CreateToggle({
     Name = "Remove Desert Fog",
     CurrentValue = false,
     Flag = "FogRemoverToggle",
-    Callback = function(Value)
+    Callback = function(Value: boolean)
         AUTMainModule.SetFogAutoRemove(Value)
     end
 })
