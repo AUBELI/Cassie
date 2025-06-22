@@ -1,7 +1,7 @@
 -- AUTMainModule.luau
 -- Core functionality for auto-leveling, teleporting, etc.
 
-local AUTMainModule = {}
+AUTMainModule = {}
 
 -- Example teleport locations (replace with your actual locations)
 AUTMainModule.TeleportLocations = {
