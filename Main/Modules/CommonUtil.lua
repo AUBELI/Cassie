@@ -10,7 +10,7 @@ local Services = setmetatable({}, {
 })
 
 local RemoteCache = {}
-local CommonUtil = {}
+CommonUtil = {}
 
 function CommonUtil.GetService(name: string): any
     return Services[name]
